@@ -6,6 +6,7 @@
 #include <vector>
 #include <array>
 #include <assert.h>
+#include <string>
 
 #include "matrix.h"
 
@@ -61,6 +62,10 @@ int main()
     assert(mt2[5][7] != 57);
     assert(mt2[5][7] == -1);
 
+    ((mt2[6][7] = 67) = -1) = 200;
+
+    assert(mt2[6][7] == 200);
+
     matrix<int, 3, -1> mt3;
     mt3[5][6][7] = 567;
     assert(mt3[5][6][7] == 567);
@@ -71,6 +76,8 @@ int main()
     mt3[5][6][9] = 569;
     mt3[6][6][7] = 667;
     mt3[5][7][7] = 577;
+
+    mt3.size();
 
     assert(mt3[5][6][8] == 568);
     assert(mt3[5][6][9] == 569);
