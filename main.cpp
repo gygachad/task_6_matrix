@@ -22,7 +22,7 @@ int main()
         mt0[100][100] = 314;
         assert(mt0[100][100] == 314);
         assert(mt0.size() == 1);
-        /*
+                
         for (auto c : mt0)
         {
             int x;
@@ -31,7 +31,7 @@ int main()
             std::tie(x, y, v) = c;
             std::cout << x << y << v << std::endl;
         }
-        */
+
         matrix<int, 1, -1> mt1;
         mt1[6] = 6;
         assert(mt1[0] == -1);
@@ -44,6 +44,14 @@ int main()
         mt1[6] = -1;
         assert(mt1[6] != 6);
         assert(mt1[6] == -1);
+        
+        for (auto c : mt1)
+        {
+            int x;
+            int v;
+            std::tie(x, v) = c;
+            std::cout << x << v << std::endl;
+        }
 
         matrix<int, 2, -1> mt2;
         mt2[5][6] = 56;
