@@ -5,7 +5,7 @@ set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 
 project(matrix VERSION ${PROJECT_VESRION})
 
-option(WITH_GOOGLE_TEST "Google test" OFF)
+option(WITH_GOOGLE_TEST "Google test" ON)
 
 configure_file(version.h.in version.h)
 

@@ -112,7 +112,6 @@ template<typename T, T defaultValue, size_t matrix_size>
 struct matrix_iterator
 {
     typedef std::conditional_t<matrix_size == 1, T, matrix<T, matrix_size - 1, defaultValue>> mT;
-    std::map<int, mT> m_matrixMap;
 
     std::map<int, mT>::iterator m_it_begin;
     std::map<int, mT>::iterator m_it_end;
@@ -158,7 +157,7 @@ struct matrix_iterator
                 m_deepit_end = m_it_begin->second.end();
             }
         }
-        
+
         return *this;
     }
 
