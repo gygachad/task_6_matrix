@@ -12,114 +12,48 @@
 
 int main()
 {    
-    while (1)
-    {
-        matrix<int, 2, -1> mt0;
-        assert(mt0.size() == 0);
-        auto a = mt0[0][0];
-        assert(a == -1);
-        assert(mt0.size() == 0);
-        mt0[100][100] = 314;
-        mt0[100][101] = 315;
-        mt0[101][101] = 316;
-        assert(mt0[100][100] == 314);
-        assert(mt0.size() == 3);
-        
-        for (auto c : mt0)
-        {
-            int x;
-            int y;
-            int v;
-            std::tie(x, y, v) = c;
-            std::cout << x << y << v << std::endl;
-        }
-        
-        matrix<int, 1, -1> mt1;
-        mt1[6] = 6;
-        assert(mt1[0] == -1);
-        assert(mt1[6] == 6);
-        assert(mt1[0] == -1);
-        mt1[5] = 5;
-        assert(mt1[2] == -1);
-        assert(mt1[5] == 5);
+	matrix<int, 2, 0> mt0;
 
-        mt1[6] = -1;
-        assert(mt1[6] != 6);
-        assert(mt1[6] == -1);
-        mt1[6] = 6;
-        mt1[7] = 7;
-        
-        for (auto c : mt1)
-        {
-            int x;
-            int v;
-            std::tie(x, v) = c;
-            std::cout << x << v << std::endl;
-        }
-        
-        matrix<int, 2, -1> mt2;
-        mt2[5][6] = 56;
-        assert(mt2[0][0] == -1);
-        assert(mt2[1][0] == -1);
-        assert(mt2[5][7] == -1);
-        assert(mt2[5][6] == 56);
-        mt2[5][7] = 57;
-        assert(mt2[5][6] == 56);
-        assert(mt2[6][6] == -1);
-        assert(mt2[5][7] == 57);
-        assert(mt2[1][0] == -1);
-        mt2[5][6] = -1;
-        assert(mt2[5][6] == -1);
-        assert(mt2[5][7] == 57);
-        mt2[5][7] = -1;
-        assert(mt2[5][7] != 57);
-        assert(mt2[5][7] == -1);
-        ((mt2[6][7] = 67) = -1) = 200;
-        assert(mt2[6][7] == 200);
-        assert(mt2.size() == 1);
+	/*
+		0 1 2 3 4 5 6 7 8 9
+	  0 0                 9
+	  1   1             8
+	  2     2         7
+	  3       3     6
+	  4         4 5
+	  5         4 5
+	  6       3     6
+	  7     2         7
+	  8   1             8
+	  9 9                 9
+	*/
+	for (int i = 0; i < 10; i++)
+	{
+		mt0[i][i] = i;
+		mt0[i][9-i] = 9-i;
+	}
 
-        matrix<int, 3, -1> mt3;
-        mt3[5][6][7] = 567;
-        assert(mt3[5][6][7] == 567);
-        assert(mt3[6][6][7] == -1);
-        assert(mt3[5][5][7] == -1);
-        assert(mt3[5][6][8] == -1);
-        mt3[5][6][8] = 568;
-        mt3[5][6][9] = 569;
-        mt3[6][6][7] = 667;
-        mt3[5][7][7] = 577;
-        
-        for (auto c : mt3)
-        {
-            int x;
-            int y;
-            int z;
-            int v;
-            std::tie(x, y, z, v) = c;
-            std::cout << x << y << z << v << std::endl;
-        }
-        
-        assert(mt3.size() == 5);
-        assert(mt3[5][6][8] == 568);
-        assert(mt3[5][6][9] == 569);
-        assert(mt3[0][0][0] == -1);
-        assert(mt3[6][6][7] == 667);
-        assert(mt3[5][7][7] == 577);
-        mt3[5][7][7] = -1;
-        assert(mt3[5][7][7] == -1);
-        mt3[7][6][7] = -1;
-        assert(mt3[7][6][7] == -1);
-        
-        mt3[6][6][7] = -1;
-        mt3[5][6][7] = -1;
-        mt3[5][6][8] = -1;
-        mt3[5][6][9] = -1;
-        assert(mt3.size() == 0);
-        assert(mt3[5][6][7] == -1);
-        assert(mt3[5][6][8] == -1);
-        assert(mt3[5][6][9] == -1);
-        assert(mt3[5][6][9] == -1);
-    }
+	for (int i = 1; i < 9; i++)
+	{
+		for (int j = 1; j < 9; j++)
+		{
+			int v = mt0[i][j];
+			std::cout << v << " ";
+		}
+		std::cout << std::endl;
+	}
+	
+	std::cout << "size " << mt0.size() << std::endl;
 
-    return 0;
+	for (auto c : mt0)
+	{
+		int x;
+		int y;
+		int v;
+
+		std::tie(x, y, v) = c;
+		std::cout << x << " " << y << " " << v << std::endl;
+	}
+
+	return 0;
 }

@@ -1,8 +1,6 @@
 #pragma once
 
-template<   typename T,
-            size_t matrix_size,
-            T defaultValue>
+template<typename T, size_t matrix_size, T defaultValue>
 class matrix
 {
     typedef std::conditional_t<matrix_size == 1, T, matrix<T, matrix_size - 1, defaultValue>> mT;
@@ -119,10 +117,10 @@ struct matrix_iterator
     std::map<int, mT>::iterator m_it_begin;
     std::map<int, mT>::iterator m_it_end;
 
-    size_t size = matrix_size;
+    using mdeepT = matrix_iterator<T, defaultValue, matrix_size - 1>;
 
-    matrix_iterator<T, defaultValue, matrix_size - 1> m_down_begin;
-    matrix_iterator<T, defaultValue, matrix_size - 1> m_down_end;
+    mdeepT m_deepit_begin = mT().begin();
+    mdeepT m_deepit_end = mT().end();
 
     matrix_iterator() {}
 
@@ -134,8 +132,8 @@ struct matrix_iterator
 
         if (ptr_begin != ptr_end)
         {
-            m_down_begin = ptr_begin->second.begin();
-            m_down_end = ptr_begin->second.end();
+            m_deepit_begin = ptr_begin->second.begin();
+            m_deepit_end = ptr_begin->second.end();
         }
     }
 
@@ -149,15 +147,15 @@ struct matrix_iterator
 
     matrix_iterator& operator++()
     {
-        m_down_begin.operator++();
+        m_deepit_begin.operator++();
 
-        if (m_down_begin == m_down_end)
+        if (m_deepit_begin == m_deepit_end)
         {
             m_it_begin++;
             if (m_it_begin != m_it_end)
             {
-                m_down_begin = m_it_begin->second.begin();
-                m_down_end = m_it_begin->second.end();
+                m_deepit_begin = m_it_begin->second.begin();
+                m_deepit_end = m_it_begin->second.end();
             }
         }
         
@@ -166,7 +164,7 @@ struct matrix_iterator
 
     auto operator*()
     {
-        auto t1 = std::tuple_cat(std::make_tuple(m_it_begin->first), *m_down_begin);
+        auto t1 = std::tuple_cat(std::make_tuple(m_it_begin->first), *m_deepit_begin);
         return t1;
     }
 };
