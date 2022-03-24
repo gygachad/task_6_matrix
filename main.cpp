@@ -20,9 +20,11 @@ int main()
         assert(a == -1);
         assert(mt0.size() == 0);
         mt0[100][100] = 314;
+        mt0[100][101] = 315;
+        mt0[101][101] = 316;
         assert(mt0[100][100] == 314);
-        assert(mt0.size() == 1);
-                
+        assert(mt0.size() == 3);
+        
         for (auto c : mt0)
         {
             int x;
@@ -31,7 +33,7 @@ int main()
             std::tie(x, y, v) = c;
             std::cout << x << y << v << std::endl;
         }
-
+        
         matrix<int, 1, -1> mt1;
         mt1[6] = 6;
         assert(mt1[0] == -1);
@@ -44,6 +46,8 @@ int main()
         mt1[6] = -1;
         assert(mt1[6] != 6);
         assert(mt1[6] == -1);
+        mt1[6] = 6;
+        mt1[7] = 7;
         
         for (auto c : mt1)
         {
@@ -52,7 +56,7 @@ int main()
             std::tie(x, v) = c;
             std::cout << x << v << std::endl;
         }
-
+        
         matrix<int, 2, -1> mt2;
         mt2[5][6] = 56;
         assert(mt2[0][0] == -1);
@@ -84,6 +88,17 @@ int main()
         mt3[5][6][9] = 569;
         mt3[6][6][7] = 667;
         mt3[5][7][7] = 577;
+        
+        for (auto c : mt3)
+        {
+            int x;
+            int y;
+            int z;
+            int v;
+            std::tie(x, y, z, v) = c;
+            std::cout << x << y << z << v << std::endl;
+        }
+        
         assert(mt3.size() == 5);
         assert(mt3[5][6][8] == 568);
         assert(mt3[5][6][9] == 569);
@@ -94,6 +109,7 @@ int main()
         assert(mt3[5][7][7] == -1);
         mt3[7][6][7] = -1;
         assert(mt3[7][6][7] == -1);
+        
         mt3[6][6][7] = -1;
         mt3[5][6][7] = -1;
         mt3[5][6][8] = -1;
