@@ -15,13 +15,24 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    - name: Setup googletest
+      uses: actions/checkout@v2
+      with:
+        repository: google/googletest
+        path: googletest
+
+    - run: mkdir googletest\build
+    - run: cmake googletest\. -B googletest\build
+    - run: cmake --build googletest\build\. --config Release
+    - run: cmake --install googletest\build\.
 
     - uses: actions/checkout@v2
       with:
         submodules: true
   
-    - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
+    - run: cmake . -DPATCH_VERSION=${{ github.run_number }} -DGTEST_ROOT="C:/Program Files (x86)/googletest-distribution/" -DGBENCHMARK_ROOT="c:/Program Files (x86)/benchmark/"
     - run: cmake --build . --config Release
+    - run: cmake --build . --config Release --target RUN_TESTS
     - run: cmake --build . --config Release --target package
 
     - name: Create Windows Release
@@ -54,9 +65,10 @@ jobs:
       with:
         submodules: true
         
-    - run: sudo apt-get update && sudo apt-get install libboost-test-dev -y
+    - run: sudo apt-get update && sudo apt-get install libgtest-dev -y
     - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
     - run: cmake --build . --config Release
+    - run: cmake --build . --config Release --target test
     - run: cmake --build . --config Release --target package
 
     - name: Create Linux Release
