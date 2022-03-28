@@ -1,4 +1,9 @@
+#include <map>
+
 #pragma once
+
+template<typename T, T defaultValue, size_t matrix_size>
+struct matrix_iterator;
 
 template<typename T, size_t matrix_size, T defaultValue>
 class matrix
@@ -113,8 +118,8 @@ struct matrix_iterator
 {
     typedef std::conditional_t<matrix_size == 1, T, matrix<T, matrix_size - 1, defaultValue>> mT;
 
-    std::map<int, mT>::iterator m_it_begin;
-    std::map<int, mT>::iterator m_it_end;
+    typename std::map<int, mT>::iterator m_it_begin;
+    typename std::map<int, mT>::iterator m_it_end;
 
     using mdeepT = matrix_iterator<T, defaultValue, matrix_size - 1>;
 
@@ -124,7 +129,7 @@ struct matrix_iterator
     matrix_iterator() {}
 
     //For end iterator
-    matrix_iterator(std::map<int, mT>::iterator ptr_begin, std::map<int, mT>::iterator ptr_end)
+    matrix_iterator(typename std::map<int, mT>::iterator ptr_begin, typename std::map<int, mT>::iterator ptr_end)
     {
         m_it_begin = ptr_begin;
         m_it_end = ptr_end;
@@ -171,12 +176,12 @@ struct matrix_iterator
 template<typename T, T defaultValue>
 struct matrix_iterator<T, defaultValue, 1>
 {
-    std::map<int, T>::iterator m_it_begin;
-    std::map<int, T>::iterator m_it_end;
+    typename std::map<int, T>::iterator m_it_begin;
+    typename std::map<int, T>::iterator m_it_end;
 
     matrix_iterator() {}
 
-    matrix_iterator(std::map<int, T>::iterator ptr_begin, std::map<int, T>::iterator ptr_end) { m_it_begin = ptr_begin; m_it_end = ptr_end; }
+    matrix_iterator(typename std::map<int, T>::iterator ptr_begin, typename std::map<int, T>::iterator ptr_end) { m_it_begin = ptr_begin; m_it_end = ptr_end; }
 
     matrix_iterator* operator->() { return this; }
 
