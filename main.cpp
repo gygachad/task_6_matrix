@@ -12,21 +12,9 @@
 
 int main()
 {    
+	
 	matrix<int, 2, 0> mt0;
 
-	/*
-		0 1 2 3 4 5 6 7 8 9
-	  0 0                 9
-	  1   1             8
-	  2     2         7
-	  3       3     6
-	  4         4 5
-	  5         4 5
-	  6       3     6
-	  7     2         7
-	  8   1             8
-	  9 9                 9
-	*/
 	for (int i = 0; i < 10; i++)
 	{
 		mt0[i][i] = i;
@@ -54,6 +42,6 @@ int main()
 		std::tie(x, y, v) = c;
 		std::cout << x << " " << y << " " << v << std::endl;
 	}
-
+	
 	return 0;
 }
